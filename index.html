@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gablestone Home Trades</title>
+<meta name="description" content="Free quotes from accredited UK installers for double glazing, solar panels, electricians and HVAC repairs. Compare up to three local trades.">
+<meta property="og:title" content="Gablestone Home Trades">
+<meta property="og:description" content="Compare free quotes from accredited UK installers for windows, solar, electrics and heating.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Cpath d='M3 13 14 4l11 9v11H3z' fill='%23E9BB1A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+html{color-scheme:light}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* Layout: trade-counter look. Sticky bar, split hero with a "spec sheet" card, tabbed service desk, cost ledger, checks, quote form, owner-only lead inbox. */
+:root{
+  --paper:#F3F5F4; --surface:#FFFFFF; --ink:#131F26; --muted:#56646C; --line:#D5DCDA;
+  --hivis:#E9BB1A; --on-hivis:#131F26; --blue:#1F4FC4; --blue-soft:#E3EAFB;
+  --ok:#1B7A4B; --warn:#A35B00; --bad:#B3261E;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:6px; --max:1160px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0E151A; --surface:#162027; --ink:#E6ECEE; --muted:#9AA8AF; --line:#2A3740;
+  --hivis:#F1C53B; --on-hivis:#131F26; --blue:#86A6FF; --blue-soft:#1B2A4A;
+  --ok:#5BC98E; --warn:#F0A945; --bad:#FF8A80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0E151A; --surface:#162027; --ink:#E6ECEE; --muted:#9AA8AF; --line:#2A3740;
+  --hivis:#F1C53B; --on-hivis:#131F26; --blue:#86A6FF; --blue-soft:#1B2A4A;
+  --ok:#5BC98E; --warn:#F0A945; --bad:#FF8A80; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--ink)}
+a{color:var(--blue)}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,4vw,40px);font-weight:800;font-stretch:88%;letter-spacing:-.01em}
+h3{font-size:20px;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+section{padding-block:64px}
+.sec-head{display:grid;gap:10px;margin-bottom:28px;max-width:70ch}
+.sec-head p{color:var(--muted)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+/* Header */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ink);color:#F3F5F4}
+.bar .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none;font-family:var(--display);font-weight:800;font-stretch:80%;font-size:22px;letter-spacing:.01em}
+.brand svg{flex:none}
+.nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav a{color:#C9D3D7;text-decoration:none;font-size:14px;font-weight:600;padding:6px 10px;border-radius:4px}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav .cta{background:var(--hivis);color:var(--on-hivis)}
+.nav .cta:hover{background:var(--hivis);color:var(--on-hivis);filter:brightness(1.05)}
+@media (max-width:720px){.nav a:not(.cta):not(.owner){display:none}}
+
+/* Hero */
+.hero{padding-block:56px 48px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:start}
+.hero h1{font-size:clamp(38px,6.2vw,72px);font-weight:900;font-stretch:72%;letter-spacing:-.015em;text-transform:uppercase}
+.hero h1 mark{background:linear-gradient(transparent 58%,var(--hivis) 58%,var(--hivis) 92%,transparent 92%);color:inherit;padding:0 .04em}
+.hero-copy{display:grid;gap:22px;min-width:0}
+.hero-copy > p{font-size:18px;color:var(--muted);max-width:56ch}
+.quick{display:flex;gap:8px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px}
+.quick select,.quick input{flex:1 1 160px;min-width:0;border:0;background:transparent;font:inherit;color:var(--ink);padding:10px}
+.quick input{font-family:var(--mono);text-transform:uppercase}
+.quick select{border-right:1px solid var(--line)}
+@media (max-width:520px){.quick select{border-right:0;border-bottom:1px solid var(--line)}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:4px;padding:12px 18px;font:600 15px var(--body);cursor:pointer;text-decoration:none}
+.btn-hv{background:var(--hivis);color:var(--on-hivis)}
+.btn-hv:hover{filter:brightness(1.05)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--ink)}
+.trust{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.trust b{color:var(--ink);font-family:var(--mono);font-weight:600}
+
+.spec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;min-width:0}
+.spec-top{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px dashed var(--line);font-family:var(--mono);font-size:12px;color:var(--muted)}
+.spec-top span:last-child{background:var(--hivis);color:var(--on-hivis);padding:2px 8px;border-radius:3px;font-weight:600}
+.spec dl{margin:0;display:grid}
+.spec .row{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.spec .row:last-child{border-bottom:0}
+.spec dt{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:2px}
+.spec dd{margin:0;font-size:14px}
+.spec dd strong{font-family:var(--display);font-stretch:85%;font-size:16px}
+@media (max-width:880px){.hero .wrap{grid-template-columns:1fr}}
+
+/* Service desk */
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r) var(--r) 0 0;overflow:hidden;background:var(--surface)}
+.tab{appearance:none;border:0;border-right:1px solid var(--line);background:transparent;color:var(--ink);text-align:left;padding:16px;cursor:pointer;display:grid;gap:4px;font:inherit}
+.tab:last-child{border-right:0}
+.tab .t-code{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+.tab .t-name{font-family:var(--display);font-weight:800;font-stretch:82%;font-size:19px;line-height:1.15}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.tab[aria-selected="true"] .t-code{color:var(--hivis)}
+.tab:not([aria-selected="true"]):hover{background:var(--blue-soft)}
+@media (max-width:720px){.tabs{grid-template-columns:1fr 1fr}.tab:nth-child(2){border-right:0}.tab:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.panel{border:1px solid var(--line);border-top:0;border-radius:0 0 var(--r) var(--r);background:var(--surface);padding:28px;display:grid;grid-template-columns:1.1fr 1fr;gap:36px}
+.panel > div{min-width:0;display:grid;gap:18px;align-content:start}
+.panel .lede{font-size:17px}
+.jobs{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.jobs li{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px}
+.creds{display:grid;gap:10px}
+.cred{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.cred code{font-family:var(--mono);font-size:12px;font-weight:600;background:var(--hivis);color:var(--on-hivis);padding:3px 7px;border-radius:3px;white-space:nowrap}
+.cred p{font-size:14px;color:var(--muted)}
+.note{border-left:3px solid var(--blue);background:var(--blue-soft);padding:12px 14px;font-size:14px;border-radius:0 4px 4px 0}
+.mini{width:100%;border-collapse:collapse;font-size:14px}
+.mini th,.mini td{padding:9px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.mini td:last-child,.mini th:last-child{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+.mini th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:400}
+@media (max-width:820px){.panel{grid-template-columns:1fr;padding:20px}}
+
+/* Checks */
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.check{background:var(--surface);padding:22px;display:grid;gap:8px;align-content:start}
+.check .k{font-family:var(--mono);font-size:12px;color:var(--blue);font-weight:600}
+.check p{font-size:15px;color:var(--muted)}
+
+/* Rules & money */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.rule{display:grid;gap:10px;padding:22px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);align-content:start}
+.rule .fig{font-family:var(--display);font-weight:900;font-stretch:75%;font-size:44px;line-height:1}
+.rule p{font-size:15px;color:var(--muted)}
+.rule .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Quote form */
+.quote-band{background:var(--ink);color:#E6ECEE}
+.quote-band .sec-head p{color:#AFBCC2}
+.quote-band .eyebrow{color:var(--hivis)}
+.qgrid{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start}
+.qside{display:grid;gap:16px;font-size:15px;color:#C3CDD2}
+.qside ol{margin:0;padding-left:20px;display:grid;gap:8px}
+form.q{background:var(--surface);color:var(--ink);border-radius:var(--r);padding:24px;display:grid;gap:16px;min-width:0}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.frow{grid-template-columns:1fr}}
+.field{display:grid;gap:6px;min-width:0}
+.field label,.field legend{font-size:13px;font-weight:600}
+.field input,.field select,.field textarea{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:10px 12px;width:100%}
+.field textarea{min-height:96px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);outline:2px solid var(--blue);outline-offset:0}
+.field .err{color:var(--bad);font-size:13px;min-height:0}
+.field.bad input,.field.bad select{border-color:var(--bad)}
+fieldset.field{border:0;padding:0;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;left:0;top:0;width:1px;height:1px;margin:0;opacity:0;pointer-events:none}
+.chip span{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;cursor:pointer;background:var(--paper)}
+.chip input:checked + span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip input:focus-visible + span{outline:3px solid var(--blue);outline-offset:2px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted)}
+.consent input{margin-top:3px}
+.status{font-size:14px;padding:12px 14px;border-radius:4px}
+.status.ok{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.status.bad{background:color-mix(in srgb,var(--bad) 12%,transparent);color:var(--bad)}
+@media (max-width:880px){.qgrid{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{display:grid;gap:0;border-top:1px solid var(--line);max-width:820px}
+.faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.faq summary{cursor:pointer;font-weight:600;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--muted)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin-top:10px;color:var(--muted);max-width:68ch}
+
+/* Tables */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table.leads{width:100%;border-collapse:collapse;font-size:14px}
+table.leads th,table.leads td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.leads th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:400}
+table.leads td.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+footer{border-top:1px solid var(--line);padding-block:32px;font-size:13px;color:var(--muted)}
+footer .wrap{display:grid;gap:10px}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Gablestone home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M3 13 14 4l11 9v11H3z" fill="#E9BB1A"/><path d="M9 24v-7h10v7" fill="none" stroke="#131F26" stroke-width="2.4"/><path d="M14 17v7" stroke="#131F26" stroke-width="2"/></svg>
+      GABLESTONE
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#costs">Costs</a>
+      <a href="#checks">Before you hire</a>
+      <a href="#grants">Grants &amp; rules</a>
+      <a class="cta" href="#quote">Get free quotes</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">England · Scotland · Wales · Northern Ireland</span>
+        <h1>Windows, solar, wiring &amp; heating. <mark>Checked trades</mark> near you.</h1>
+        <p>Tell us the job once. We match you with up to three accredited local installers for double glazing, solar PV, electrical work and HVAC repairs, and you compare quotes side by side. Free, with no obligation.</p>
+        <form class="quick" id="quickForm" novalidate>
+          <label class="sr" for="qkService" hidden>Service</label>
+          <select id="qkService" aria-label="Service"></select>
+          <input id="qkPostcode" aria-label="Postcode" placeholder="Postcode, e.g. LS1 4AP" autocomplete="postal-code">
+          <button class="btn btn-hv" type="submit">Start my quote</button>
+        </form>
+        <div class="trust">
+          <span><b>FENSA</b> windows</span><span><b>MCS</b> solar</span><span><b>Part P</b> electrics</span><span><b>Gas Safe</b> &amp; <b>F-Gas</b> heating</span>
+        </div>
+      </div>
+      <aside class="spec" aria-label="Example job sheet">
+        <div class="spec-top"><span>JOB SHEET · EXAMPLE</span><span>3 QUOTES</span></div>
+        <dl>
+          <div class="row"><dt>Job</dt><dd><strong>Replace 9 uPVC windows</strong><br>3-bed semi, 1970s</dd></div>
+          <div class="row"><dt>Spec</dt><dd>A-rated double glazing, U-value ≤ 1.4 W/m²K, trickle vents</dd></div>
+          <div class="row"><dt>Must hold</dt><dd>FENSA or Certass registration, insurance-backed guarantee</dd></div>
+          <div class="row"><dt>Typical</dt><dd><strong>£5,000 – £8,500</strong> fitted</dd></div>
+          <div class="row"><dt>Paperwork</dt><dd>Building Regulations compliance certificate within 30 days</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Service desk</span>
+        <h2>Four trades, one request</h2>
+        <p>Pick a trade to see what's covered, what it usually costs, and which registrations a UK installer should be able to show you.</p>
+      </div>
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div class="panel" role="tabpanel" id="panel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="costs" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Cost ledger · 2026</span>
+        <h2>What UK homeowners typically pay</h2>
+        <p>Indicative installed prices including VAT where it applies, for a typical 3-bed home. London and the South East often run 10–20% higher. Your quotes will depend on access, materials and survey findings.</p>
+      </div>
+      <div class="tbl-wrap">
+        <table class="leads" id="costTable" style="min-width:520px">
+          <thead><tr><th>Trade</th><th>Job</th><th style="text-align:right">Typical range</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="checks" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Before you hire</span>
+        <h2>Six checks that take ten minutes</h2>
+        <p>Every installer we pass on should clear these. It's still worth doing them yourself.</p>
+      </div>
+      <div class="checks">
+        <div class="check"><span class="k">REGISTER</span><h3>Look them up yourself</h3><p>Search the installer on the FENSA, MCS, NICEIC/NAPIT or Gas Safe Register website rather than trusting a logo on a van.</p></div>
+        <div class="check"><span class="k">ID CARD</span><h3>Ask for the card on the day</h3><p>Gas engineers carry a Gas Safe ID card listing exactly which appliances they're qualified for. Check the back.</p></div>
+        <div class="check"><span class="k">QUOTE</span><h3>Get it itemised, in writing</h3><p>Equipment brand and model, labour, scaffolding, waste removal and VAT should each be a separate line.</p></div>
+        <div class="check"><span class="k">DEPOSIT</span><h3>Keep the deposit small</h3><p>25% or less is normal. Paying by credit card for jobs over £100 adds Section 75 protection.</p></div>
+        <div class="check"><span class="k">GUARANTEE</span><h3>Insist on an IBG</h3><p>An insurance-backed guarantee covers the workmanship warranty if the firm stops trading.</p></div>
+        <div class="check"><span class="k">CERTIFICATE</span><h3>Get the sign-off paperwork</h3><p>Notifiable work needs a Building Regulations certificate. Without it, selling or remortgaging can stall.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="grants" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Grants &amp; rules</span>
+        <h2>Money off and legal must-haves</h2>
+        <p>Scheme values change. Check the current rules on GOV.UK or with the Energy Saving Trust before you sign.</p>
+      </div>
+      <div class="rules">
+        <div class="rule"><span class="tag">Solar · heat pumps · insulation</span><span class="fig">0% VAT</span><p>Energy-saving materials installed in homes are zero-rated until 31 March 2027. The rate is due to rise to 5% from 1 April 2027, so book surveys early if timing matters.</p></div>
+        <div class="rule"><span class="tag">Heat pumps · England &amp; Wales</span><span class="fig">£7,500</span><p>The Boiler Upgrade Scheme takes £7,500 off an air or ground source heat pump. Your MCS-certified installer applies for the voucher on your behalf.</p></div>
+        <div class="rule"><span class="tag">Solar exports</span><span class="fig">SEG</span><p>The Smart Export Guarantee pays you for electricity you send to the grid. You need an MCS certificate and a smart meter, and rates vary by supplier.</p></div>
+        <div class="rule"><span class="tag">Landlords · England</span><span class="fig">5 yrs</span><p>Private landlords need an Electrical Installation Condition Report (EICR) at least every five years, and an annual gas safety record for every gas appliance.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-band" id="quote">
+    <div class="wrap">
+      <div class="qgrid">
+        <div class="qside">
+          <div class="sec-head" style="margin:0">
+            <span class="eyebrow">Free quotes</span>
+            <h2 style="color:#F3F5F4">Tell us about the job</h2>
+            <p>Takes about two minutes. We never sell your details to marketing lists.</p>
+          </div>
+          <ol>
+            <li>We check your postcode against installers covering your area.</li>
+            <li>Up to three accredited firms get in touch, usually within one working day.</li>
+            <li>You compare written quotes and choose. No obligation.</li>
+          </ol>
+        </div>
+        <form class="q" id="quoteForm" novalidate style="position:relative">
+          <fieldset class="field" id="f-services">
+            <legend>What do you need? <span style="font-weight:400;color:var(--muted)">(pick one or more)</span></legend>
+            <div class="chips" id="svcChips"></div>
+            <span class="err" id="e-services"></span>
+          </fieldset>
+          <div class="field">
+            <label for="job">Job type</label>
+            <select id="job"></select>
+          </div>
+          <div class="frow">
+            <div class="field" id="f-postcode">
+              <label for="postcode">Postcode</label>
+              <input id="postcode" autocomplete="postal-code" placeholder="e.g. M14 5RU" style="font-family:var(--mono);text-transform:uppercase">
+              <span class="err" id="e-postcode"></span>
+            </div>
+            <div class="field">
+              <label for="property">Property</label>
+              <select id="property">
+                <option>Detached house</option><option selected>Semi-detached house</option><option>Terraced house</option><option>Bungalow</option><option>Flat or maisonette</option><option>Commercial premises</option>
+              </select>
+            </div>
+          </div>
+          <div class="frow">
+            <div class="field">
+              <label for="ownership">You are the</label>
+              <select id="ownership"><option>Homeowner</option><option>Landlord</option><option>Tenant (with landlord's permission)</option><option>Business owner</option></select>
+            </div>
+            <div class="field">
+              <label for="timing">When</label>
+              <select id="timing"><option>Urgent – within 48 hours</option><option>Within 2 weeks</option><option selected>Within 1–3 months</option><option>Just researching</option></select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="details">Job details</label>
+            <textarea id="details" placeholder="e.g. Boiler losing pressure every few days, Worcester Bosch combi about 9 years old."></textarea>
+          </div>
+          <div class="frow">
+            <div class="field" id="f-name">
+              <label for="name">Full name</label>
+              <input id="name" autocomplete="name">
+              <span class="err" id="e-name"></span>
+            </div>
+            <div class="field" id="f-phone">
+              <label for="phone">Phone</label>
+              <input id="phone" type="tel" autocomplete="tel" placeholder="07700 900123">
+              <span class="err" id="e-phone"></span>
+            </div>
+          </div>
+          <div class="field" id="f-email">
+            <label for="email">Email</label>
+            <input id="email" type="email" autocomplete="email">
+            <span class="err" id="e-email"></span>
+          </div>
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+            <label for="website">Leave this field empty</label>
+            <input id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <label class="consent"><input type="checkbox" id="consent"> <span>I agree to Gablestone sharing these details with up to three installers so they can contact me about this job.</span></label>
+          <span class="err" id="e-consent" style="color:var(--bad);font-size:13px"></span>
+          <button class="btn btn-hv" type="submit" id="submitBtn">Send my request</button>
+          <div class="status" id="formStatus" hidden></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Questions</span><h2>Common questions</h2></div>
+      <div class="faq">
+        <details><summary>Is the service really free?</summary><p>Yes. Homeowners never pay us. Installers pay a small fee per introduction, which never appears on your quote.</p></details>
+        <details><summary>My double glazing has gone misty. Do I need new windows?</summary><p>Usually not. Condensation between the panes means the sealed unit has failed. Replacing just the glass unit costs far less than a new window and keeps the existing frame.</p></details>
+        <details><summary>Do solar panels need planning permission?</summary><p>Most roof-mounted systems on houses in England are permitted development. Listed buildings, conservation areas and flat roofs can need permission, and your installer should check before quoting.</p></details>
+        <details><summary>Can any electrician replace my fuse box?</summary><p>A consumer unit replacement is notifiable under Part P in England and Wales. Use an electrician registered with a competent person scheme such as NICEIC or NAPIT so they can self-certify the work.</p></details>
+        <details><summary>Who can work on my air conditioning or heat pump?</summary><p>Anyone handling refrigerant must hold an F-Gas certificate. For heat pumps that qualify for the Boiler Upgrade Scheme, the installer must also be MCS-certified.</p></details>
+        <details><summary>How fast can someone come out for a heating breakdown?</summary><p>Choose "Urgent" on the form. In most areas a Gas Safe engineer can attend within 24–48 hours.</p></details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong style="color:var(--ink)">Gablestone</strong> is an introduction service connecting UK households with independent installers. We are not a contractor and don't carry out work ourselves.</p>
+    <p>Prices are indicative 2026 ranges for guidance only. Grant and VAT rules can change; confirm with GOV.UK, Ofgem or the Energy Saving Trust before committing.</p>
+  </div>
+</footer>
+
+<script>
+const SERVICES = [
+  { id:"glazing", code:"01 · WINDOWS", name:"Double Glazing",
+    lede:"New windows, doors and replacement glass. uPVC, aluminium and timber, plus repairs to misted units, handles and hinges.",
+    jobs:["Window replacement","Misted sealed units","Composite front doors","French & bi-fold doors","Conservatory roofs","Hinge & lock repairs"],
+    creds:[["FENSA","Or Certass. Lets the installer self-certify Building Regulations compliance."],["WER A","Window Energy Rating A or above. Replacement windows in England need a U-value of 1.4 W/m²K or lower."],["IBG","Insurance-backed guarantee on the installation."]],
+    note:"Ask whether trickle vents are included. Part F now expects background ventilation when windows are replaced.",
+    costs:[["uPVC window, supplied & fitted","£450 – £1,100"],["Whole house, 8–10 windows","£5,000 – £8,500"],["Misted sealed unit","£90 – £250"],["Composite front door","£1,200 – £2,500"],["Aluminium bi-fold doors (3 m)","£4,000 – £7,000"]] },
+  { id:"solar", code:"02 · SOLAR PV", name:"Solar Panels",
+    lede:"Rooftop solar PV and battery storage, with servicing for systems that are underperforming, plus inverter swaps and bird proofing.",
+    jobs:["New solar PV","Battery storage","Inverter replacement","Panel cleaning","Bird mesh","System health check"],
+    creds:[["MCS","Required for Smart Export Guarantee payments and most finance."],["RECC","Or HIES membership for consumer protection on deposits and contracts."],["G98/G99","Your installer notifies the network operator (DNO) on your behalf."]],
+    note:"Solar panels and batteries are VAT-free until 31 March 2027. Expect payback in roughly 7–12 years, depending on usage and export rate.",
+    costs:[["4 kWp system (about 10 panels)","£5,000 – £7,500"],["Add a 5–10 kWh battery","£2,500 – £5,000"],["Inverter replacement","£800 – £1,500"],["Bird mesh fitted","£400 – £700"],["Clean & inspection","£100 – £250"]] },
+  { id:"electric", code:"03 · ELECTRICAL", name:"Electricians",
+    lede:"Domestic and light commercial electrics, from fault-finding and extra sockets to full rewires, EV chargers and landlord safety reports.",
+    jobs:["EICR / safety report","Consumer unit upgrade","Full or part rewire","EV charger install","Fault finding","Lighting & sockets"],
+    creds:[["Part P","Registration with NICEIC, NAPIT or ELECSA to self-certify notifiable work."],["BS 7671","Work to the current IET Wiring Regulations, with an Electrical Installation Certificate on completion."],["OZEV","Approved installer status, if you're fitting an EV charger."]],
+    note:"Landlords in England need an EICR at least every five years and must give a copy to tenants within 28 days.",
+    costs:[["EICR, 3-bed house","£150 – £300"],["Consumer unit replacement","£500 – £1,000"],["Full rewire, 3-bed","£4,000 – £8,000"],["7 kW EV charger fitted","£800 – £1,200"],["Extra double socket","£80 – £180"]] },
+  { id:"hvac", code:"04 · HVAC", name:"HVAC & Heating",
+    lede:"Boiler breakdowns, servicing and replacement, heat pumps, air conditioning and ventilation, for homes and small businesses.",
+    jobs:["Boiler repair","Annual boiler service","New combi boiler","Air source heat pump","Air conditioning","MVHR & extract fans"],
+    creds:[["Gas Safe","Legal requirement for any work on gas appliances. Check the ID card."],["F-Gas","Required to handle refrigerants in air conditioning and heat pumps."],["MCS","Needed for heat pump installs to qualify for the £7,500 Boiler Upgrade Scheme grant."]],
+    note:"An annual boiler service is usually required to keep the manufacturer's warranty valid.",
+    costs:[["Boiler service","£80 – £120"],["Boiler repair (typical)","£150 – £400"],["New combi boiler, fitted","£2,000 – £4,000"],["Air source heat pump, before grant","£10,000 – £14,000"],["Split air-con unit, fitted","£1,500 – £3,000"]] }
+];
+const byId = Object.fromEntries(SERVICES.map(s=>[s.id,s]));
+const $ = s => document.querySelector(s);
+const el = (tag, props={}, ...kids) => { const n=document.createElement(tag); Object.assign(n,props); kids.forEach(k=>n.append(k)); return n; };
+
+/* Tabs */
+let active = "glazing";
+function renderTabs(){
+  const tabs = $("#tabs"); tabs.textContent="";
+  SERVICES.forEach(s=>{
+    const b = el("button",{className:"tab",type:"button",id:"tab-"+s.id});
+    b.setAttribute("role","tab"); b.setAttribute("aria-selected", String(s.id===active)); b.setAttribute("aria-controls","panel");
+    b.tabIndex = s.id===active?0:-1;
+    b.append(el("span",{className:"t-code",textContent:s.code}), el("span",{className:"t-name",textContent:s.name}));
+    b.addEventListener("click",()=>{active=s.id;renderTabs();renderPanel();});
+    b.addEventListener("keydown",e=>{
+      const i=SERVICES.findIndex(x=>x.id===active);
+      if(e.key==="ArrowRight"||e.key==="ArrowLeft"){ e.preventDefault(); const n=(i+(e.key==="ArrowRight"?1:-1)+SERVICES.length)%SERVICES.length; active=SERVICES[n].id; renderTabs(); renderPanel(); $("#tab-"+active).focus(); }
+    });
+    tabs.append(b);
+  });
+}
+function renderPanel(){
+  const s = byId[active], p = $("#panel"); p.textContent=""; p.setAttribute("aria-labelledby","tab-"+s.id);
+  const left = el("div");
+  left.append(el("p",{className:"lede",textContent:s.lede}));
+  const jobs = el("ul",{className:"jobs"}); s.jobs.forEach(j=>jobs.append(el("li",{textContent:j}))); left.append(jobs);
+  left.append(el("span",{className:"eyebrow",textContent:"What to check for"}));
+  const creds = el("div",{className:"creds"});
+  s.creds.forEach(([c,t])=>creds.append(el("div",{className:"cred"}, el("code",{textContent:c}), el("p",{textContent:t}))));
+  left.append(creds);
+  const right = el("div");
+  const tbl = el("table",{className:"mini"});
+  const th = el("thead"); th.append(el("tr",{}, el("th",{textContent:"Typical job"}), el("th",{textContent:"Range"})));
+  const tb = el("tbody"); s.costs.forEach(([j,c])=>tb.append(el("tr",{}, el("td",{textContent:j}), el("td",{textContent:c}))));
+  tbl.append(th,tb); right.append(tbl);
+  right.append(el("p",{className:"note",textContent:s.note}));
+  const go = el("a",{className:"btn btn-hv",href:"#quote",textContent:"Get "+s.name.toLowerCase()+" quotes"});
+  go.addEventListener("click",()=>preselect(s.id));
+  right.append(go);
+  p.append(left,right);
+}
+
+/* Cost ledger */
+function renderCosts(){
+  const tb = $("#costTable tbody");
+  SERVICES.forEach(s=>s.costs.forEach(([j,c],i)=>{
+    const tr = el("tr");
+    tr.append(el("td",{textContent:i===0?s.name:"",style:"font-weight:600"}), el("td",{textContent:j}), el("td",{className:"mono",textContent:c,style:"text-align:right"}));
+    tb.append(tr);
+  }));
+}
+
+/* Form setup */
+function fillSelects(){
+  const qs = $("#qkService");
+  SERVICES.forEach(s=>qs.append(el("option",{value:s.id,textContent:s.name})));
+  const chips = $("#svcChips");
+  SERVICES.forEach(s=>{
+    const lab = el("label",{className:"chip"});
+    const cb = el("input",{type:"checkbox",value:s.id,id:"svc-"+s.id});
+    cb.addEventListener("change",fillJobs);
+    lab.append(cb, el("span",{textContent:s.name}));
+    chips.append(lab);
+  });
+  fillJobs();
+}
+function chosen(){ return [...document.querySelectorAll("#svcChips input:checked")].map(i=>i.value); }
+function fillJobs(){
+  const sel = $("#job"), prev = sel.value; sel.textContent="";
+  const ids = chosen().length?chosen():SERVICES.map(s=>s.id);
+  ids.forEach(id=>{
+    const g = el("optgroup",{label:byId[id].name});
+    byId[id].jobs.forEach(j=>g.append(el("option",{value:byId[id].name+" – "+j,textContent:j})));
+    sel.append(g);
+  });
+  sel.append(el("option",{value:"Other / not sure",textContent:"Other / not sure"}));
+  if([...sel.options].some(o=>o.value===prev)) sel.value=prev;
+}
+function preselect(id, pc){
+  document.querySelectorAll("#svcChips input").forEach(i=>i.checked = i.value===id);
+  fillJobs();
+  if(pc) $("#postcode").value = pc;
+}
+$("#quickForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  preselect($("#qkService").value, $("#qkPostcode").value.trim().toUpperCase());
+  $("#quote").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+  setTimeout(()=>$("#job").focus({preventScroll:true}),400);
+});
+
+/* Validation */
+const PC = /^(GIR ?0AA|[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2})$/i;
+const PHONE = /^(\+44\s?|0)[\d\s]{9,12}$/;
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+function setErr(key,msg){ const f=$("#f-"+key); if(f) f.classList.toggle("bad",!!msg); const e=$("#e-"+key); if(e) e.textContent=msg||""; }
+function validate(){
+  let ok = true;
+  const chk = (key,cond,msg)=>{ setErr(key, cond?"":msg); if(!cond) ok=false; };
+  chk("services", chosen().length>0, "Pick at least one service.");
+  const pc = $("#postcode").value.trim();
+  chk("postcode", PC.test(pc), pc?"That doesn't look like a UK postcode. Try the format SW1A 1AA.":"Enter your postcode so we can find local installers.");
+  chk("name", $("#name").value.trim().length>1, "Enter your name.");
+  chk("phone", PHONE.test($("#phone").value.trim()), "Enter a UK phone number, e.g. 07700 900123.");
+  chk("email", EMAIL.test($("#email").value.trim()), "Enter an email address like name@example.co.uk.");
+  const c = $("#consent").checked; $("#e-consent").textContent = c?"":"Tick the box so installers can contact you."; if(!c) ok=false;
+  return ok;
+}
+function fmtPC(pc){ pc = pc.replace(/\s+/g,"").toUpperCase(); return pc.slice(0,-3)+" "+pc.slice(-3); }
+function showStatus(kind,msg){ const s=$("#formStatus"); s.hidden=false; s.className="status "+kind; s.textContent=msg; }
+
+/* Google Sheets connection
+   Paste your Apps Script web app URL between the quotes (see SETUP.md). */
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzpqy4xyvMDOGWfhWPwnyFIpskPiA4TZmC6YM8s7elUHgPF4U82fW4gPRGhH_CmIv5w/exec";
+
+$("#quoteForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  $("#formStatus").hidden = true;
+  if(!validate()){ const first=document.querySelector(".field.bad input,.field.bad select,#svcChips input"); first?.focus(); return; }
+  if(!SHEET_URL){ showStatus("bad","This form isn't connected to a Google Sheet yet. Add the web app URL to SHEET_URL in index.html."); return; }
+  const btn = $("#submitBtn"); btn.disabled = true; btn.textContent = "Sending…";
+  const ref = (Date.now().toString(36)+Math.random().toString(36).slice(2,6)).toUpperCase();
+  const data = new URLSearchParams({
+    ref,
+    services: chosen().map(id=>byId[id].name).join(", "),
+    job: $("#job").value, postcode: fmtPC($("#postcode").value),
+    property: $("#property").value, ownership: $("#ownership").value, timing: $("#timing").value,
+    details: $("#details").value.trim().slice(0,2000),
+    name: $("#name").value.trim().slice(0,120), phone: $("#phone").value.trim().slice(0,30), email: $("#email").value.trim().slice(0,160),
+    website: $("#website").value,
+    page: location.href
+  });
+  try{
+    // no-cors: Google returns an opaque response, so a resolved fetch means the request reached the script.
+    await fetch(SHEET_URL, { method:"POST", mode:"no-cors", body:data });
+    showStatus("ok", "Request sent. Up to three local installers will be in touch, usually within one working day. Your reference: "+ref);
+    ["#details","#name","#phone","#email"].forEach(sel=>$(sel).value="");
+    $("#consent").checked = false;
+  }catch(err){
+    showStatus("bad","Your request didn't go through because of a connection problem. Check your connection and press Send again.");
+  }finally{ btn.disabled=false; btn.textContent="Send my request"; }
+});
+
+renderTabs(); renderPanel(); renderCosts(); fillSelects();
+</script>
+</body>
+</html>
